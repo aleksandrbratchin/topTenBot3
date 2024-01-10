@@ -1,4 +1,4 @@
-package ru.bratchin.config;
+package ru.bratchin.configuration.telegram;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;

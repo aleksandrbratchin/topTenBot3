@@ -7,17 +7,17 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>dispatcher</artifactId>
+    <artifactId>node</artifactId>
     <packaging>jar</packaging>
 
-    <name>dispatcher</name>
+    <name>node</name>
+    <url>http://maven.apache.org</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -35,10 +35,29 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
+        <!--    rabbitmq    -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
 
+        <!--db-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.3.8</version>
+        </dependency>
+
+        <!--db jsonb bean-->
+<!--        <dependency>
+            <groupId>com.vladmihalcea</groupId>
+            <artifactId>hibernate-types-52</artifactId>
+            <version>2.2.2</version>
+        </dependency>-->
     </dependencies>
 </project>

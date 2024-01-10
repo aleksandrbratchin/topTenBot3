@@ -1,18 +1,25 @@
 package ru.bratchin.controller;
 
-import org.springframework.stereotype.Controller;
+import jakarta.annotation.PostConstruct;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.bratchin.config.BotConfig;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import ru.bratchin.configuration.telegram.BotConfig;
 
-@Controller
+@Component
 public class TelegramBot extends TelegramLongPollingBot {
 
     private final BotConfig config;
 
-    public TelegramBot(BotConfig config) {
+    private final UpdateController updateController;
+
+    public TelegramBot(BotConfig config, UpdateController updateController) {
         super(config.getToken());
+
         this.config = config;
+        this.updateController = updateController;
 
         // Создание меню
         /*List<BotCommand> commandList = new ArrayList<>();
@@ -24,16 +31,37 @@ public class TelegramBot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             throw new RuntimeException(e);
         }*/
-    }
 
-    @Override
-    public void onUpdateReceived(Update update) {
-        var mes = update.getMessage();
-        System.out.println(mes.getText());
     }
 
     @Override
     public String getBotUsername() {
         return config.getName();
+    }
+
+    @PostConstruct
+    private void init() {
+        updateController.registerBot(this);
+    }
+
+    /***
+     * Сюда падают все сообщения
+     */
+    @Override
+    public void onUpdateReceived(Update update) {
+        updateController.processUpdate(update);
+    }
+
+    /***
+     * Отправить ответ в телегу
+     */
+    public void sendAnswerMessage(SendMessage sendMessage) {
+        if (sendMessage != null) {
+            try {
+                execute(sendMessage);
+            } catch (TelegramApiException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

@@ -1,0 +1,7 @@
+rabbitQueue:
+  messages:
+    update:
+      DOC: doc_message_update
+      PHOTO: photo_message_update
+      TEXT: text_message_update
+    answer: answer_update

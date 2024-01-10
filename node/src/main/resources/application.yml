@@ -1,0 +1,19 @@
+server:
+  port: 8091
+
+spring:
+  rabbitmq:
+    #host: localhost
+    #port: 5672
+    host: 94.158.219.127
+    port: 5672
+    username: userok
+    password: password
+  datasource:
+    url: jdbc:postgresql://94.158.219.127:5432/toptendb
+    username: userok
+    password: password
+  jpa:
+    generate-ddl: true
+
+
